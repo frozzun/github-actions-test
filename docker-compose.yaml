@@ -1,5 +1,5 @@
 services:
-  crud:
+  github-actions-test:
     build:
       context: .
       dockerfile: Dockerfile
