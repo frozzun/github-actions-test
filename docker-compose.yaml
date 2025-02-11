@@ -7,6 +7,7 @@ services:
 #    image: frozzun99/websocket:latest
     ports:
       - "8080:8080"
+    restart: always
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/crud
       SPRING_DATASOURCE_USERNAME: root
@@ -20,6 +21,7 @@ services:
   mysql:
     hostname: mysql
     container_name: mysql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: crud  # (선택) 기본 생성할 DB 이름
