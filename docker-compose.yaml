@@ -32,7 +32,7 @@ services:
     volumes:
       - db_mysql:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
+      test: [ "CMD", "mysql", "-uroot", "-p1234", "-e", "SELECT 1" ]
       interval: 10s
       retries: 5
       start_period: 30s
