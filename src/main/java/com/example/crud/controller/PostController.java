@@ -55,4 +55,11 @@ public class PostController {
     postService.delete(id);
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<PostDto> testCD(@PathVariable Long id) {
+    Optional<Post> post = postService.read(id);
+    return post.map(value -> ResponseEntity.ok(new PostDto(value)))
+      .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다: " + id));
+  }
 }
