@@ -21,6 +21,7 @@ services:
   mysql:
     hostname: mysql
     container_name: mysql
+    image: mysql:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
@@ -28,13 +29,12 @@ services:
       MYSQL_USER: user  # (선택) 새로운 사용자
       MYSQL_PASSWORD: 1234  # (선택) 새로운 사용자의 비밀번호
       ports:
-    image: mysql:latest
     ports:
       - "3306:3306"
     volumes:
       - db_mysql:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysql", "-uroot", "-p1234", "-e", "SELECT 1" ]
+      test: ["CMD", "mysqladmin", "ping", "--silent", "-uroot", "-p1234"]
       interval: 10s
       retries: 5
       start_period: 30s
