@@ -61,11 +61,15 @@ jobs:
 
       # 2. 기존의 컨테이너를 중지시킵니다
       - name: docker stop container
-        run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
+        run: sudo docker ps -q | xargs -r sudo docker stop
 
       # 모든 컨테이너 삭제
       - name: remove all container
-        run: sudo docker rm -f $(sudo docker ps -aq)
+        run: sudo docker ps -aq | xargs -r sudo docker rm -f
+
+      # app-network 가 없으면 생성
+      - name: Ensure Docker Network Exists
+        run: sudo docker network inspect app-network >/dev/null 2>&1 || sudo docker network create app-network
 
       # Mysql 컨테이너 실행
       - name: mysql run new container
@@ -77,4 +81,4 @@ jobs:
 
       # 4. 미사용 이미지를 정리합니다
       - name: delete old docker image
-        run: sudo docker system prune -f
+        run: sudo docker system prune -af
