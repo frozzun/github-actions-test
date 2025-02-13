@@ -56,7 +56,7 @@ public class PostController {
     return ResponseEntity.noContent().build();
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/test/{id}")
   public ResponseEntity<PostDto> testCD(@PathVariable Long id) {
     Optional<Post> post = postService.read(id);
     return post.map(value -> ResponseEntity.ok(new PostDto(value)))
